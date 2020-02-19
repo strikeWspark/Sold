@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:title="Terms and Condition"
+        android:id="@+id/sold_termscondition"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/sold_aboutus"
+        android:title="About Us"
+        app:showAsAction="never"/>
+
+</menu>

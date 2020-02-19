@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:theme="@style/AppTheme.AppBarOverlay">
+        <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:id="@+id/sold_add_product_toolbar"
+            app:title="Add Product"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+    <ImageButton
+        android:id="@+id/sold_product_image"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="@dimen/margin"
+        android:padding="@dimen/padding" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/sold_add_itemname"
+        android:hint="Item Name"
+        android:layout_margin="@dimen/margin"
+        android:padding="@dimen/padding"/>
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/sold_add_description"
+        android:hint="Description"
+        android:layout_margin="@dimen/margin"
+        android:padding="@dimen/padding"/>
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/sold_add_bidPrice"
+        android:layout_margin="@dimen/margin"
+        android:padding="@dimen/padding"
+        android:hint="Bid Price"
+        android:inputType="numberDecimal"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/sold_add_product"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Item"
+        app:cornerRadius="@dimen/fab_margin"
+        android:layout_margin="70dp"
+        android:padding="@dimen/padding"
+        android:layout_gravity="center_horizontal"/>
+
+
+</LinearLayout>

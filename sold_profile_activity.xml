@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:theme="@style/AppTheme.AppBarOverlay">
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/sold_profile_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:title="@string/profile"
+            app:popupTheme="@style/AppTheme.PopupOverlay"/>
+
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/sold_image_profile"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_alignParentLeft="true"
+                android:src="@color/cardview_shadow_start_color"
+                android:layout_margin="@dimen/margin"
+                android:padding="@dimen/padding"/>
+
+            <TextView
+                android:id="@+id/sold_name_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:layout_toRightOf="@+id/sold_image_profile"
+                android:text="Name"
+                android:layout_margin="@dimen/margin"
+                android:padding="@dimen/padding"/>
+
+            <TextView
+                android:id="@+id/sold_upiId_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:layout_toRightOf="@+id/sold_image_profile"
+                android:text="Upi"
+                android:layout_below="@id/sold_name_view"
+                android:layout_margin="@dimen/margin"
+                android:padding="@dimen/padding"/>
+            <TextView
+                android:id="@+id/sold_mobile_no_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:layout_toRightOf="@+id/sold_image_profile"
+                android:text="Name"
+                android:layout_below="@id/sold_upiId_view"
+                android:layout_margin="@dimen/margin"
+                android:padding="@dimen/padding"/>
+            <TextView
+                android:id="@+id/sold_location_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:layout_below="@id/sold_image_profile"
+                android:text="Location"
+                android:layout_margin="@dimen/margin"
+                android:padding="@dimen/padding"/>
+            <TextView
+                android:id="@+id/sold_username_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:layout_below="@id/sold_location_view"
+                android:text="Username"
+                android:layout_margin="@dimen/margin"
+                android:padding="@dimen/padding"/>
+
+
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bids Till Now"
+            android:layout_margin="@dimen/margin"
+            android:padding="@dimen/padding"
+            android:textStyle="bold"
+            android:textSize="18sp"/>
+
+        <ListView
+            android:id="@+id/sold_profile_listView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+
+</LinearLayout>
