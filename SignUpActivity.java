@@ -2,12 +2,13 @@ package com.dryfire.sold.Activities;
 
 import android.content.Intent;
 import android.net.Uri;
-import android.nfc.Tag;
+
 import android.os.Bundle;
-import android.util.Log;
+import android.text.TextUtils;
+
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.Toast;
+
 
 import com.dryfire.sold.R;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -102,27 +103,38 @@ public class SignUpActivity extends AppCompatActivity {
         final String sign_location = locationEdit.getText().toString().trim();
         final String sign_mobile = mobilrEdit.getText().toString().trim();
         String password = passwordEdit.getText().toString().trim();
-        mAuth.createUserWithEmailAndPassword(email,password)
-                .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-                    @Override
-                    public void onSuccess(AuthResult authResult) {
-                        System.out.println("Inside onSuccess");
-                        String userid = mAuth.getCurrentUser().getUid();
-                        DatabaseReference currDB = mDatabaseReference.child(userid);
-                        currDB.child("name").setValue(name);
-                        currDB.child("username").setValue(email);
-                        currDB.child("upiId").setValue(payment_upi);
-                       // currDB.child("mobile").setValue(sign_mobile);
-                        currDB.child("location").setValue(sign_location);
-                        currDB.child("image").setValue("none");
+
+        if(!TextUtils.isEmpty(email) && !(TextUtils.isEmpty(password)) && !(TextUtils.isEmpty(name))
+          && !(TextUtils.isEmpty(payment_upi)) && !(TextUtils.isEmpty(sign_location))){
+            mAuth.createUserWithEmailAndPassword(email,password)
+                    .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                        @Override
+                        public void onSuccess(AuthResult authResult) {
+                            System.out.println("Inside onSuccess");
+                            String userid = mAuth.getCurrentUser().getUid();
+                            DatabaseReference currDB = mDatabaseReference.child(userid);
+                            currDB.child("name").setValue(name);
+                            currDB.child("username").setValue(email);
+                            currDB.child("upiId").setValue(payment_upi);
+                            // currDB.child("mobile").setValue(sign_mobile);
+                            currDB.child("location").setValue(sign_location);
+                            currDB.child("image").setValue("none");
 
 
-                        startActivity(new Intent(SignUpActivity.this,MainActivity.class));
-                        finish();
+                            startActivity(new Intent(SignUpActivity.this,MainActivity.class));
+                            finish();
 
-                    }
-                });
-    }
+                        }
+                    });
+        }else{
+            nameInput.setError(getString(R.string.error_message));
+            usernameInput.setError(getString(R.string.error_message));
+            locationInput.setError(getString(R.string.error_message));
+            upiInput.setError(getString(R.string.error_message));
+
+        }
+        }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

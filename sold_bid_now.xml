@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Enter the bid amount"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:layout_margin="@dimen/margin"
+        android:padding="@dimen/padding"
+        android:layout_gravity="center_horizontal"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        android:id="@+id/sold_bid_now_bidInput"
+        android:layout_margin="@dimen/margin"
+        android:padding="@dimen/padding"
+        android:hint="Bid Amount">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/sold_bid_now_bidEdit"
+            android:inputType="numberDecimal"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/sold_bid_now_button"
+        android:layout_margin="@dimen/margin"
+        android:padding="@dimen/padding"
+        app:cornerRadius="@dimen/fab_margin"
+        android:text="@string/bow_now"
+        android:layout_gravity="center_horizontal"/>
+
+</LinearLayout>

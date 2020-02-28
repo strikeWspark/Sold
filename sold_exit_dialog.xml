@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Are You Sure?"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="@dimen/margin"
+        android:padding="@dimen/padding"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/sold_exitbutton"
+            app:cornerRadius="@dimen/fab_margin"
+            android:text="EXIT"
+            android:layout_alignParentRight="true"
+            android:layout_margin="@dimen/margin"
+            android:padding="@dimen/padding"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/sold_cancel_dialog"
+            app:cornerRadius="@dimen/fab_margin"
+            android:layout_margin="@dimen/margin"
+            android:padding="@dimen/padding"
+            android:layout_toStartOf="@id/sold_exitbutton"
+            android:text="CANCEL"/>
+    </RelativeLayout>
+
+</LinearLayout>

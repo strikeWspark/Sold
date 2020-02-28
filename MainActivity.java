@@ -6,8 +6,11 @@ import android.os.Bundle;
 import com.dryfire.sold.Adapter.SoldRecyclerView;
 import com.dryfire.sold.Modal.Sold;
 import com.dryfire.sold.R;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -18,6 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -37,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
     private DatabaseReference mDatabasereference;
     private FirebaseDatabase mDatabase;
     private SoldRecyclerView soldRecyclerView;
-    private FirebaseUser mUser;
+
     private FirebaseAuth mAuth;
 
     @Override
@@ -48,15 +52,15 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
 
-
         mAuth = FirebaseAuth.getInstance();
-        mUser = mAuth.getCurrentUser();
+
 
 
         mDatabase = FirebaseDatabase.getInstance();
         mDatabasereference = mDatabase.getReference("MSold");
         mDatabasereference.keepSynced(true);
         soldList = new ArrayList<>();
+
 
         recyclerView = (RecyclerView) findViewById(R.id.sold_recyclerview);
         recyclerView.setHasFixedSize(true);
@@ -86,6 +90,8 @@ public class MainActivity extends AppCompatActivity {
         //                startActivity(new Intent(MainActivity.this,ProfileActivity.class));
         //            }
         //        });
+
+
     }
 
     @Override

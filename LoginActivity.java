@@ -19,12 +19,13 @@ import com.google.firebase.auth.FirebaseUser;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private MaterialButton nextButton;
-    private MaterialButton cancelbutton;
+    private MaterialButton nextButton,exitButton;
+    private MaterialButton cancelbutton,cancelDialog;
     private MaterialButton signupButton;
     private TextInputLayout usernameInputlayout;
     private TextInputEditText usernameEdittext;
@@ -33,12 +34,16 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseUser mUser;
     private FirebaseAuth.AuthStateListener mAuthListener;
+    private AlertDialog.Builder exit_builder;
+    private AlertDialog dialog;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sold_login_activity);
 
         FirebaseApp.initializeApp(this);
+
+        exit_builder = new AlertDialog.Builder(this);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -80,6 +85,33 @@ public class LoginActivity extends AppCompatActivity {
                     login(email,pwd);
                 }
 
+
+            }
+        });
+
+        cancelbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                View v = getLayoutInflater().inflate(R.layout.sold_exit_dialog,null);
+                exit_builder.setView(v);
+                exitButton = (MaterialButton) v.findViewById(R.id.sold_exitbutton);
+                cancelDialog = (MaterialButton) v.findViewById(R.id.sold_cancel_dialog);
+                dialog = exit_builder.create();
+                dialog.show();
+                exitButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        System.exit(0);
+                        finish();
+                    }
+                });
+                cancelDialog.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                    }
+                });
 
             }
         });
