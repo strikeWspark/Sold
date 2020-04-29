@@ -11,6 +11,7 @@
         android:text="Are You Sure?"
         android:textSize="22sp"
         android:textStyle="bold"
+        android:fontFamily="@font/pt_sans_caption"
         android:layout_gravity="center_horizontal"
         android:layout_margin="@dimen/margin"
         android:padding="@dimen/padding"/>
@@ -24,6 +25,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/sold_exitbutton"
             app:cornerRadius="@dimen/fab_margin"
+            android:fontFamily="@font/pt_sans_narrow"
             android:text="EXIT"
             android:layout_alignParentRight="true"
             android:layout_margin="@dimen/margin"
@@ -33,11 +35,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/sold_cancel_dialog"
+            android:fontFamily="@font/pt_sans_narrow"
             app:cornerRadius="@dimen/fab_margin"
             android:layout_margin="@dimen/margin"
             android:padding="@dimen/padding"
             android:layout_toStartOf="@id/sold_exitbutton"
-            android:text="CANCEL"/>
+            android:text="@string/cancel"/>
     </RelativeLayout>
 
 </LinearLayout>

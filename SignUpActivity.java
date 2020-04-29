@@ -1,11 +1,14 @@
 package com.dryfire.sold.Activities;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
 
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageButton;
 
@@ -20,12 +23,17 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 public class SignUpActivity extends AppCompatActivity {
 
     private ImageButton profilepic;
+    private Toolbar toolbar;
     private TextInputLayout nameInput,usernameInput,passwordinput;
     private TextInputLayout confirmpwdInput,mobileInput;
     private TextInputEditText nameEdit,usernameEdit,passwordEdit;
@@ -40,6 +48,7 @@ public class SignUpActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private Uri resulturi = null;
     private final static int GALLERY_CODE = 1;
+    private ProgressDialog mProgress;
 
 
     @Override
@@ -47,7 +56,10 @@ public class SignUpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sold_sign_activity);
 
-
+        toolbar = findViewById(R.id.sold_signup_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        mProgress = new ProgressDialog(this);
         mDatabase = FirebaseDatabase.getInstance();
         mDatabaseReference = mDatabase.getReference().child("MUsers");
 
@@ -93,6 +105,16 @@ public class SignUpActivity extends AppCompatActivity {
                 createAccount();
             }
         });
+
+        passwordEdit.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int i, KeyEvent keyEvent) {
+                if(isPassowrd(passwordEdit.getText())){
+                    passwordinput.setError(null);
+                }
+                return false;
+            }
+        });
     }
 
     private void createAccount() {
@@ -103,30 +125,57 @@ public class SignUpActivity extends AppCompatActivity {
         final String sign_location = locationEdit.getText().toString().trim();
         final String sign_mobile = mobilrEdit.getText().toString().trim();
         String password = passwordEdit.getText().toString().trim();
+        String confirm_password = confirmEdit.getText().toString().trim();
+        mProgress.setMessage("Signing Up...");
+        mProgress.show();
 
         if(!TextUtils.isEmpty(email) && !(TextUtils.isEmpty(password)) && !(TextUtils.isEmpty(name))
           && !(TextUtils.isEmpty(payment_upi)) && !(TextUtils.isEmpty(sign_location))){
+
+            isPassowrd(passwordEdit.getText());
+
+
+
+
             mAuth.createUserWithEmailAndPassword(email,password)
                     .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                         @Override
                         public void onSuccess(AuthResult authResult) {
-                            System.out.println("Inside onSuccess");
+
+                            Map<String,String> dataToSave = new HashMap<>();
+
+
                             String userid = mAuth.getCurrentUser().getUid();
                             DatabaseReference currDB = mDatabaseReference.child(userid);
-                            currDB.child("name").setValue(name);
+
+                            dataToSave.put("name",name);
+                            dataToSave.put("username",email);
+                            dataToSave.put("upiId",payment_upi);
+                            dataToSave.put("location",sign_location);
+                            dataToSave.put("image","none");
+
+                            mDatabaseReference.child(userid).setValue(dataToSave).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+
+                                    mProgress.dismiss();
+                                    startActivity(new Intent(SignUpActivity.this,MainActivity.class));
+                                    finish();
+                                }
+                            });
+                         /*   currDB.child("name").setValue(name);
                             currDB.child("username").setValue(email);
                             currDB.child("upiId").setValue(payment_upi);
                             // currDB.child("mobile").setValue(sign_mobile);
                             currDB.child("location").setValue(sign_location);
                             currDB.child("image").setValue("none");
+                           */
 
-
-                            startActivity(new Intent(SignUpActivity.this,MainActivity.class));
-                            finish();
 
                         }
                     });
         }else{
+            mProgress.dismiss();
             nameInput.setError(getString(R.string.error_message));
             usernameInput.setError(getString(R.string.error_message));
             locationInput.setError(getString(R.string.error_message));
@@ -145,5 +194,9 @@ public class SignUpActivity extends AppCompatActivity {
             resulturi = mImageUri;
             profilepic.setImageURI(resulturi);
         }
+    }
+
+    private boolean isPassowrd(Editable pwd){
+        return pwd != null && pwd.length() >= 8;
     }
 }

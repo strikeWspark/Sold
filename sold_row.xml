@@ -19,14 +19,19 @@
 
 
         <TextView
+            android:id="@+id/sold_carditemname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/sold_carditemname"
-            android:text="hello fucker"
-            android:textStyle="bold"
+            android:layout_marginStart="@dimen/margin"
+            android:layout_marginTop="@dimen/margin"
+            android:layout_marginEnd="@dimen/margin"
+            android:layout_marginBottom="@dimen/margin"
             android:layout_toRightOf="@id/sold_itemcardimage"
+            android:fontFamily="@font/pt_sans_caption"
             android:padding="@dimen/padding"
-            android:layout_margin="@dimen/margin"/>
+            android:text="hello fucker"
+            android:textSize="22sp"
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -34,7 +39,9 @@
             android:id="@+id/sold_itemcardesc"
             android:layout_toRightOf="@id/sold_itemcardimage"
             android:layout_below="@id/sold_carditemname"
+            android:textColor="@android:color/holo_blue_dark"
             android:text="Description"
+            android:fontFamily="@font/pt_sans_caption"
             android:padding="@dimen/padding"
             android:layout_margin="@dimen/margin"/>
 
@@ -45,6 +52,7 @@
             android:text="Bid Price"
             android:layout_toRightOf="@id/sold_itemcardimage"
             android:layout_below="@id/sold_itemcardesc"
+            android:fontFamily="@font/pt_sans_caption"
             android:padding="@dimen/padding"
             android:layout_margin="@dimen/margin"/>
 
@@ -54,6 +62,7 @@
             android:id="@+id/sold_bid_button"
             android:layout_alignParentEnd="true"
             android:layout_below="@id/sold_minBidprice"
+            android:fontFamily="@font/pt_sans_narrow"
             android:padding="@dimen/padding"
             android:layout_margin="@dimen/margin"
             app:cornerRadius="@dimen/fab_margin"

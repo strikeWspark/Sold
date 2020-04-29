@@ -14,7 +14,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/sold_signup_toolbar"
-            app:title="@string/signup_button"/>
+            app:title="@string/signup_button"
+            android:background="@color/colorPrimary"
+            android:fontFamily="@font/pt_sans_caption"/>
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -34,7 +36,9 @@
                 android:layout_width="200dp"
                 android:layout_height="200dp"
                 android:layout_gravity="center_horizontal"
-                android:src="@color/cardview_shadow_start_color"
+                android:src="@drawable/profile_icon"
+                android:background="@android:color/transparent"
+                android:scaleType="fitXY"
                 android:layout_margin="@dimen/margin"
                 android:padding="@dimen/padding"/>
 
@@ -43,26 +47,30 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Name"
+                android:fontFamily="@font/pt_sans_caption"
                 android:layout_margin="@dimen/margin"
                 android:padding="@dimen/padding">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/sold_signup_name_edit"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/pt_sans_caption"/>
             </com.google.android.material.textfield.TextInputLayout>
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/sold_signup_username_input"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/username"
+                android:fontFamily="@font/pt_sans_caption"
                 android:layout_margin="@dimen/margin"
                 android:padding="@dimen/padding">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/sold_signup_username_edit"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/pt_sans_caption" />
             </com.google.android.material.textfield.TextInputLayout>
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/sold_signup_password_input"
@@ -71,13 +79,15 @@
                 app:passwordToggleEnabled="true"
                 android:hint="@string/password"
                 android:layout_margin="@dimen/margin"
-                android:padding="@dimen/padding">
+                android:padding="@dimen/padding"
+                android:fontFamily="@font/pt_sans_caption">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/sold_signup_password_edit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textPassword"/>
+                    android:inputType="textPassword"
+                    android:fontFamily="@font/pt_sans_caption"/>
             </com.google.android.material.textfield.TextInputLayout>
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/sold_signup_confirm_input"
@@ -85,13 +95,15 @@
                 android:layout_height="wrap_content"
                 android:hint="Confirm Password"
                 android:layout_margin="@dimen/margin"
-                android:padding="@dimen/padding">
+                android:padding="@dimen/padding"
+                android:fontFamily="@font/pt_sans_caption">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/sold_sign_confirm_edit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textPassword"/>
+                    android:inputType="textPassword"
+                    android:fontFamily="@font/pt_sans_caption"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <RadioGroup
@@ -106,6 +118,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Male"
+                    android:fontFamily="@font/pt_sans_caption"
                     android:layout_margin="@dimen/margin"
                     android:padding="@dimen/padding"/>
 
@@ -114,6 +127,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Female"
+                    android:fontFamily="@font/pt_sans_caption"
                     android:layout_margin="@dimen/margin"
                     android:padding="@dimen/padding"/>
                 <RadioButton
@@ -121,6 +135,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Others"
+                    android:fontFamily="@font/pt_sans_caption"
                     android:layout_margin="@dimen/margin"
                     android:padding="@dimen/padding"/>
             </RadioGroup>
@@ -130,13 +145,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/upi"
+                android:fontFamily="@font/pt_sans_caption"
                 android:layout_margin="@dimen/margin"
                 android:padding="@dimen/padding">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/sold_upi_edit"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/pt_sans_caption"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -144,13 +161,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Location"
+                android:fontFamily="@font/pt_sans_caption"
                 android:layout_margin="@dimen/margin"
                 android:padding="@dimen/padding">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/sold_location_edit"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/pt_sans_caption"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -160,6 +179,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Mobile"
+                android:fontFamily="@font/pt_sans_caption"
                 android:layout_margin="@dimen/margin"
                 android:padding="@dimen/padding">
 
@@ -167,6 +187,7 @@
                     android:id="@+id/sold_signup_mobile_edit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/pt_sans_caption"
                     android:inputType="number"
                     android:maxLength="10"/>
             </com.google.android.material.textfield.TextInputLayout>
@@ -176,6 +197,7 @@
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:text="@string/signup_button"
+                android:fontFamily="@font/pt_sans_narrow"
                 app:cornerRadius="@dimen/fab_margin"
                 android:layout_gravity="center_horizontal"
                 android:layout_margin="@dimen/margin"

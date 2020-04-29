@@ -1,12 +1,17 @@
 package com.dryfire.sold.Adapter;
 
-import android.app.Activity;
+
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,7 +20,9 @@ import com.dryfire.sold.Activities.FullDescriptionActivity;
 import com.dryfire.sold.Activities.MainActivity;
 import com.dryfire.sold.Modal.Sold;
 import com.dryfire.sold.R;
-import com.dryfire.sold.UI.BottomSheetFragment;
+
+import com.dryfire.sold.UI.SoldAnimation;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -23,23 +30,30 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.squareup.picasso.Picasso;
 
+
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
+
 import androidx.recyclerview.widget.RecyclerView;
 
 public class SoldRecyclerView extends RecyclerView.Adapter<SoldRecyclerView.ViewHolder> {
 
     private Context context;
     private List<Sold> soldList;
-
+    String card_itemname;
+    String key_node;
+    String imageUrl = null;
+    private int prevPosition =0;
 
     public SoldRecyclerView(MainActivity context, List<Sold> soldList){
         this.context = context;
@@ -57,12 +71,26 @@ public class SoldRecyclerView extends RecyclerView.Adapter<SoldRecyclerView.View
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
         Sold sold = soldList.get(position);
-        String imageUrl = null;
-
-        holder.itemname.setText(sold.getItem_name());
+        card_itemname = sold.getItem_name();
+        key_node = sold.getKey_node_value();
+        holder.itemname.setText(card_itemname);
         holder.itemdesc.setText(sold.getDescription());
         holder.itemminbid.setText(sold.getMin_bid_price());
+        imageUrl = sold.getItem_image();
 
+
+
+        if(imageUrl != null){
+            Picasso.with(context).load(imageUrl).into(holder.itemimgae);
+        }
+
+
+        if(position>prevPosition){
+            SoldAnimation.animate(holder,true);
+        }else {
+            SoldAnimation.animate(holder,false);
+        }
+        prevPosition = position;
 
     }
 
@@ -76,14 +104,17 @@ public class SoldRecyclerView extends RecyclerView.Adapter<SoldRecyclerView.View
         public TextView itemname,itemdesc,itemminbid;
         public ImageView itemimgae;
         public MaterialButton bidbutton;
-        //private AlertDialog.Builder bidnowBuilder;
+        private AlertDialog.Builder bidnowBuilder;
         private TextInputLayout bidnowInput;
         private TextInputEditText bidnowEdit;
         private MaterialButton bidnowButton;
-       // private AlertDialog bidnowDialog;
-        private FirebaseDatabase mDatabase_bid,database_activities;
-        private DatabaseReference mDatabaseReference_bid,databaseReference_activities;
+        private AlertDialog bidnowDialog;
+        private ProgressDialog mprogress;
+        private FirebaseDatabase mDatabase_bid;
+        private DatabaseReference mDatabaseReference_bid;
         String userId;
+        View myView;
+        String key_value;
 
         private FirebaseAuth mAuth;
         private FirebaseUser mUser;
@@ -92,8 +123,11 @@ public class SoldRecyclerView extends RecyclerView.Adapter<SoldRecyclerView.View
 
         public ViewHolder(@NonNull View itemView, final Context ctx) {
             super(itemView);
+            myView = itemView;
             context = ctx;
 
+
+            mprogress = new ProgressDialog(context);
             mDatabase_bid = FirebaseDatabase.getInstance();
             mDatabaseReference_bid = mDatabase_bid.getReference().child("MBids");
             itemimgae = itemView.findViewById(R.id.sold_itemcardimage);
@@ -101,8 +135,10 @@ public class SoldRecyclerView extends RecyclerView.Adapter<SoldRecyclerView.View
             itemdesc = itemView.findViewById(R.id.sold_itemcardesc);
             itemminbid = itemView.findViewById(R.id.sold_minBidprice);
             bidbutton = itemView.findViewById(R.id.sold_bid_button);
-
             userId = null;
+            key_value = key_node;
+
+
 
             mAuth = FirebaseAuth.getInstance();
             mUser = mAuth.getCurrentUser();
@@ -118,27 +154,98 @@ public class SoldRecyclerView extends RecyclerView.Adapter<SoldRecyclerView.View
                     bidnowBuilder.setView(v);
                     bidnowDialog = bidnowBuilder.create();
                     bidnowDialog.show();*/
+                    final Sold sold = soldList.get(getAdapterPosition());
                     final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(context);
-                    View v = LayoutInflater.from(context).inflate(R.layout.sold_bid_now,null);
+                    final View v = LayoutInflater.from(context).inflate(R.layout.sold_bid_now,null);
                     bidnowInput = v.findViewById(R.id.sold_bid_now_bidInput);
                     bidnowEdit = v.findViewById(R.id.sold_bid_now_bidEdit);
                     bidnowButton = v.findViewById(R.id.sold_bid_now_button);
                     bottomSheetDialog.setContentView(v);
+                    bottomSheetDialog.getWindow().setBackgroundDrawable(new ColorDrawable(
+                            Color.TRANSPARENT));
                     bottomSheetDialog.show();
+                    final TextView[] dialogitem_name = new TextView[1];
+                    final TextView[] bid_amount = new TextView[1];
+                    final MaterialButton[] cancel_button = new MaterialButton[1];
+                    final MaterialButton[] confirm_button = new MaterialButton[1];
+                    final CheckBox[] check_dialog = new CheckBox[1];
                     bidnowButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
+                            bidnowBuilder = new  AlertDialog.Builder(context);
+                            final View alert_view = LayoutInflater.from(context)
+                                    .inflate(R.layout.sold_confirm_bid_dialog,null);
+                            dialogitem_name[0] = alert_view.findViewById(R.id.sold_dialog_itemname);
+                            bid_amount[0] = alert_view.findViewById(R.id.sold_dialog_bidAmount);
+                            cancel_button[0] = alert_view.findViewById(R.id.sold_bid_cancel);
+                            confirm_button[0] = alert_view.findViewById(R.id.sold_confirm_bid);
+                            check_dialog[0] = alert_view.findViewById(R.id.sold_dialog_check);
+                            bidnowBuilder.setView(alert_view);
+                            final String s = bidnowEdit.getText().toString().trim();
 
-                            String s = bidnowEdit.getText().toString().trim();
-                            DatabaseReference newItem = mDatabaseReference_bid.push();
-                            newItem.child("bid_price").setValue(s);
-                            newItem.child("username").setValue(mUser.getEmail());
-                            newItem.child("userId").setValue(mUser.getUid());
-                            Snackbar.make(view, "Your Bid has been placed", Snackbar.LENGTH_LONG)
-                                    .show();
+                            //dialogitem_name[0].setText("Item Name: " + card_itemname);
+                            dialogitem_name[0].setText("Item name:" + sold.item_name);
+                            bid_amount[0].setText("Bid Amount: " + s);
+                            bidnowDialog = bidnowBuilder.create();
+                            bidnowDialog.getWindow().setBackgroundDrawable(new ColorDrawable(
+                                    Color.TRANSPARENT));
+                            bidnowDialog.show();
+                            cancel_button[0].setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                        bidnowDialog.dismiss();
+                                }
+                            });
+
+
+                            confirm_button[0].setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    if(check_dialog[0].isChecked()){
+                                        bidnowDialog.dismiss();
+                                        mprogress.setMessage("Placing your bid...");
+                                        mprogress.show();
+                                        mprogress.setCancelable(false);
+
+                                        DatabaseReference newItem = mDatabaseReference_bid.push();
+                                        Map<String,String> dataToSave= new HashMap<>();
+                                        dataToSave.put("bid_price",s);
+                                        dataToSave.put("item_image",sold.getItem_image());
+                                        dataToSave.put("username",mUser.getEmail());
+                                        dataToSave.put("userId",mUser.getUid());
+                                        dataToSave.put("itemname",sold.getItem_name());
+                                        dataToSave.put("item_key",key_value);
+                                        //newItem.child("bid_price").setValue(s);
+                                        //newItem.child("username").setValue(mUser.getEmail());
+                                        //newItem.child("userId").setValue(mUser.getUid());
+
+                                        mDatabaseReference_bid.child(mUser.getUid()).
+                                                child(key_value)
+                                                .setValue(dataToSave).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                mprogress.dismiss();
+                                                Snackbar.make(myView, "Your Bid has been placed", Snackbar.LENGTH_LONG)
+                                                        .show();
+                                            }
+                                        });
+
+                                    }else{
+                                        Toast.makeText(context, "Please check the condition", Toast.LENGTH_SHORT).show();
+                                    }
+
+                                }
+
+                            });
+
+
+
+
                             bottomSheetDialog.dismiss();
                         }
                     });
+
+
                     
                     if(!(TextUtils.isEmpty(bidnowEdit.getText().toString().trim()))){
                         Toast.makeText(ctx, "", Toast.LENGTH_SHORT).show();

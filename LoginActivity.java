@@ -1,5 +1,6 @@
 package com.dryfire.sold.Activities;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -36,6 +37,7 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener mAuthListener;
     private AlertDialog.Builder exit_builder;
     private AlertDialog dialog;
+    private ProgressDialog mprogress;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +47,7 @@ public class LoginActivity extends AppCompatActivity {
 
         exit_builder = new AlertDialog.Builder(this);
 
+        mprogress = new ProgressDialog(this);
         mAuth = FirebaseAuth.getInstance();
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
@@ -76,6 +79,9 @@ public class LoginActivity extends AppCompatActivity {
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                mprogress.setMessage("Signing In...");
+                mprogress.show();
+                mprogress.setCancelable(false);
 
                 if(!TextUtils.isEmpty(usernameEdittext.getText().toString()) &&
                 !TextUtils.isEmpty(passwordEdittext.getText().toString())){
@@ -133,8 +139,10 @@ public class LoginActivity extends AppCompatActivity {
                 if(task.isSuccessful()){
                     Toast.makeText(LoginActivity.this, "Signed In", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(LoginActivity.this,MainActivity.class));
+                    mprogress.dismiss();
                     finish();
                 }else{
+                    mprogress.dismiss();
                     Toast.makeText(LoginActivity.this, "Not Signed In", Toast.LENGTH_SHORT).show();
                 }
             }

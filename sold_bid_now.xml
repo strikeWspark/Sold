@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/bottomsheetshape"
+    >
 
     <TextView
         android:layout_width="wrap_content"
@@ -13,6 +15,7 @@
         android:textStyle="bold"
         android:layout_margin="@dimen/margin"
         android:padding="@dimen/padding"
+        android:fontFamily="@font/pt_sans_caption"
         android:layout_gravity="center_horizontal"/>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -22,6 +25,7 @@
         android:id="@+id/sold_bid_now_bidInput"
         android:layout_margin="@dimen/margin"
         android:padding="@dimen/padding"
+        android:fontFamily="@font/pt_sans_caption"
         android:hint="Bid Amount">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -39,6 +43,7 @@
         android:layout_margin="@dimen/margin"
         android:padding="@dimen/padding"
         app:cornerRadius="@dimen/fab_margin"
+        android:fontFamily="@font/pt_sans_narrow"
         android:text="@string/bow_now"
         android:layout_gravity="center_horizontal"/>
 

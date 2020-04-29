@@ -15,6 +15,8 @@
             android:layout_height="?attr/actionBarSize"
             android:id="@+id/sold_full_toolbar"
             app:title="@string/app_name"
+            android:background="@color/colorPrimary"
+            android:fontFamily="@font/pt_sans_caption"
             app:popupTheme="@style/AppTheme.PopupOverlay"/>
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -36,6 +38,7 @@
                 android:id="@+id/sold_full_itemname"
                 android:textStyle="bold"
                 android:text="Item Name"
+                android:fontFamily="@font/pt_sans_caption"
                 android:layout_gravity="center_horizontal"
                 android:layout_margin="@dimen/margin"
                 android:padding="@dimen/padding"/>
@@ -51,12 +54,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/pt_sans_caption"
                 android:id="@+id/sold_full_description" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/sold_full_bidprice"
+                android:fontFamily="@font/pt_sans_caption"
                 android:textStyle="bold"
                 android:textSize="30sp"
                 android:layout_gravity="center_horizontal"/>
@@ -65,6 +70,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/sold_full_username"
+                android:fontFamily="@font/pt_sans_caption"
                 android:layout_margin="@dimen/margin"
                 android:padding="@dimen/padding"/>
 
@@ -74,6 +80,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/sold_full_bidButton"
                 android:text="@string/bid"
+                android:fontFamily="@font/pt_sans_narrow"
                 android:layout_gravity="center_horizontal"
                 android:layout_margin="@dimen/margin"
                 android:padding="@dimen/padding"/>

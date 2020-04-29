@@ -17,6 +17,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:title="@string/app_name"
+                android:background="@color/colorPrimary"
+                android:fontFamily="@font/pt_sans_caption"
                 app:popupTheme="@style/AppTheme.PopupOverlay" />
 
         </com.google.android.material.appbar.AppBarLayout>
@@ -31,6 +33,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
             android:layout_margin="25dp"
+            android:backgroundTint="@color/colorAccent"
+            app:borderWidth="0dp"
             app:srcCompat="@drawable/ic_add"
             android:elevation="@dimen/margin"/>
 

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/sold_alert_shape">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Bid Confirmation"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:fontFamily="@font/pt_sans_caption"
+        android:layout_gravity="center_horizontal"
+        android:padding="@dimen/padding"
+        android:layout_margin="@dimen/margin"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/sold_dialog_itemname"
+        android:textStyle="bold"
+        android:fontFamily="@font/pt_sans_caption"
+        android:textSize="@dimen/dialog_text"
+        android:layout_margin="@dimen/margin"
+        android:padding="@dimen/padding"
+        android:text="Item Name: "/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/sold_dialog_bidAmount"
+        android:text="Bid Amount: "
+        android:textStyle="bold"
+        android:fontFamily="@font/pt_sans_caption"
+        android:textSize="@dimen/dialog_text"
+        android:padding="@dimen/padding"
+        android:layout_margin="@dimen/margin"/>
+
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/sold_dialog_check"
+        android:fontFamily="@font/pt_sans_caption"
+        android:text="@string/nid_condition"
+        android:padding="@dimen/padding"
+        android:layout_margin="@dimen/margin"
+        android:textColor="@android:color/holo_blue_dark"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/sold_confirm_bid"
+            android:layout_alignParentRight="true"
+            android:text="Confrim"
+            android:fontFamily="@font/pt_sans_narrow"
+            android:padding="@dimen/padding"
+            android:layout_margin="@dimen/margin"
+            app:cornerRadius="@dimen/fab_margin"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/sold_bid_cancel"
+            android:fontFamily="@font/pt_sans_narrow"
+            android:text="@string/cancel"
+            android:layout_toStartOf="@id/sold_confirm_bid"
+            android:padding="@dimen/padding"
+            android:layout_margin="@dimen/margin"
+            app:cornerRadius="@dimen/fab_margin"/>
+
+    </RelativeLayout>
+</LinearLayout>

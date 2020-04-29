@@ -1,14 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/splash_screen_gradient">
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:src="@drawable/sold_icon"
         android:layout_gravity="center_vertical"
-        android:layout_margin="20dp"
+        android:layout_marginTop="75dp"
         android:padding="12dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="25dp"
+        android:fontFamily="@font/pt_sans_caption"
+        android:padding="12dp"
+        android:text="C'est La Vie"
+        android:textColor="@android:color/holo_blue_dark"
+        android:textSize="25sp" />
 
 </LinearLayout>

@@ -14,6 +14,8 @@
             android:layout_height="?attr/actionBarSize"
             android:id="@+id/sold_add_product_toolbar"
             app:title="Add Product"
+            android:background="@color/colorPrimary"
+            android:fontFamily="@font/pt_sans_caption"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </com.google.android.material.appbar.AppBarLayout>
@@ -32,6 +34,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/sold_add_itemname"
         android:hint="Item Name"
+        android:fontFamily="@font/pt_sans_caption"
         android:layout_margin="@dimen/margin"
         android:padding="@dimen/padding"/>
 
@@ -40,6 +43,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/sold_add_description"
         android:hint="Description"
+        android:fontFamily="@font/pt_sans_caption"
         android:layout_margin="@dimen/margin"
         android:padding="@dimen/padding"/>
 
@@ -49,6 +53,7 @@
         android:id="@+id/sold_add_bidPrice"
         android:layout_margin="@dimen/margin"
         android:padding="@dimen/padding"
+        android:fontFamily="@font/pt_sans_caption"
         android:hint="Bid Price"
         android:inputType="numberDecimal"/>
 
@@ -60,6 +65,7 @@
         app:cornerRadius="@dimen/fab_margin"
         android:layout_margin="70dp"
         android:padding="@dimen/padding"
+        android:fontFamily="@font/pt_sans_narrow"
         android:layout_gravity="center_horizontal"/>
 
 
