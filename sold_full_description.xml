@@ -44,10 +44,11 @@
                 android:padding="@dimen/padding"/>
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="450dp"
                 android:id="@+id/sold_full_image"
                 android:src="@drawable/sold_icon"
+                android:scaleType="fitXY"
                 android:layout_margin="@dimen/margin"
                 android:padding="@dimen/padding"/>
 

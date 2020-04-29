@@ -13,7 +13,10 @@ import android.os.Bundle;
 import com.dryfire.sold.Adapter.SoldRecyclerView;
 import com.dryfire.sold.Modal.Sold;
 import com.dryfire.sold.R;
+import com.dryfire.sold.UI.NavigationIconClickListener;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.internal.NavigationMenuItemView;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -36,6 +39,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -49,7 +54,8 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseDatabase mDatabase;
     private SoldRecyclerView soldRecyclerView;
     private ProgressDialog mprogressDialog;
-
+    private MaterialButton signoutButton;
+    private MaterialButton profileButton;
     private static final String ACTION_UPDATE_NOTIFICATION = "com.dryfire.sold.Activities";
     private static final String PRIMARY_CHANNEL_ID = "primary_notification_channel";
     private static final int NOTIFICATION_ID = 0;
@@ -64,7 +70,18 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        mprogressDialog=  new ProgressDialog(this);
+        toolbar.setNavigationOnClickListener(new NavigationIconClickListener(this,
+                findViewById(R.id.sold_grid),
+                new AccelerateDecelerateInterpolator(),
+                this.getResources().getDrawable(R.drawable.sold_menu_icon),
+                this.getResources().getDrawable(R.drawable.ic_close_black_24dp)));
+
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+            findViewById(R.id.sold_grid).setBackground(this.getDrawable(R.drawable.toolbar_shape));
+        }
+
+                mprogressDialog = new ProgressDialog(this);
 
         notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
@@ -87,9 +104,33 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+
         loadBidContents();
         FloatingActionButton fab = findViewById(R.id.fab);
+        signoutButton = findViewById(R.id.sold_signout);
+        profileButton = findViewById(R.id.sold_profile);
 
+
+        signoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mAuth.signOut();
+                startActivity(new Intent(MainActivity.this,LoginActivity.class));
+                finish();
+            }
+        });
+
+
+        profileButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(MainActivity.this,ProfileActivity.class);
+                intent.putExtra("ID",mAuth.getCurrentUser().getUid());
+                startActivity(intent);
+
+            }
+        });
         //new MyLoaderTask().execute();
 
         fab.setOnClickListener(new View.OnClickListener() {
@@ -205,6 +246,8 @@ public class MainActivity extends AppCompatActivity {
         }
         return true;
     }
+
+}
 /*
     @Override
     protected void onStart() {
@@ -301,5 +344,5 @@ public class MainActivity extends AppCompatActivity {
             super.onPostExecute(aVoid);
         }
     }*/
-}
+
 

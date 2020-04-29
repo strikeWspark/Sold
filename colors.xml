@@ -4,4 +4,5 @@
     <color name="colorPrimaryDark">#424242</color>
     <color name="colorAccent">#6a1b9a</color>
     <color name="textColor">#ffffff</color>
+    <color name="soldtoolbarBackgroundColor">#ffffff</color>
 </resources>

@@ -51,7 +51,6 @@ public class SoldRecyclerView extends RecyclerView.Adapter<SoldRecyclerView.View
     private Context context;
     private List<Sold> soldList;
     String card_itemname;
-    String key_node;
     String imageUrl = null;
     private int prevPosition =0;
 
@@ -72,7 +71,6 @@ public class SoldRecyclerView extends RecyclerView.Adapter<SoldRecyclerView.View
 
         Sold sold = soldList.get(position);
         card_itemname = sold.getItem_name();
-        key_node = sold.getKey_node_value();
         holder.itemname.setText(card_itemname);
         holder.itemdesc.setText(sold.getDescription());
         holder.itemminbid.setText(sold.getMin_bid_price());
@@ -136,7 +134,7 @@ public class SoldRecyclerView extends RecyclerView.Adapter<SoldRecyclerView.View
             itemminbid = itemView.findViewById(R.id.sold_minBidprice);
             bidbutton = itemView.findViewById(R.id.sold_bid_button);
             userId = null;
-            key_value = key_node;
+            key_value = null;
 
 
 
@@ -184,7 +182,7 @@ public class SoldRecyclerView extends RecyclerView.Adapter<SoldRecyclerView.View
                             final String s = bidnowEdit.getText().toString().trim();
 
                             //dialogitem_name[0].setText("Item Name: " + card_itemname);
-                            dialogitem_name[0].setText("Item name:" + sold.item_name);
+                            dialogitem_name[0].setText("Item name:" + sold.getItem_name());
                             bid_amount[0].setText("Bid Amount: " + s);
                             bidnowDialog = bidnowBuilder.create();
                             bidnowDialog.getWindow().setBackgroundDrawable(new ColorDrawable(
@@ -214,13 +212,13 @@ public class SoldRecyclerView extends RecyclerView.Adapter<SoldRecyclerView.View
                                         dataToSave.put("username",mUser.getEmail());
                                         dataToSave.put("userId",mUser.getUid());
                                         dataToSave.put("itemname",sold.getItem_name());
-                                        dataToSave.put("item_key",key_value);
+                                        dataToSave.put("item_key",sold.getKey_node_value());
                                         //newItem.child("bid_price").setValue(s);
                                         //newItem.child("username").setValue(mUser.getEmail());
                                         //newItem.child("userId").setValue(mUser.getUid());
 
                                         mDatabaseReference_bid.child(mUser.getUid()).
-                                                child(key_value)
+                                                child(sold.getKey_node_value())
                                                 .setValue(dataToSave).addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void aVoid) {

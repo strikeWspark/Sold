@@ -2,4 +2,7 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="margin">12dp</dimen>
     <dimen name="padding">4dp</dimen>
+    <dimen name="alertpadding">10dp</dimen>
+    <dimen name="dialog_text">20dp</dimen>
+    <dimen name="sold_grid_reveal_height">600dp</dimen>
 </resources>

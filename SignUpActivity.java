@@ -14,6 +14,7 @@ import android.widget.ImageButton;
 
 
 import com.dryfire.sold.R;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
@@ -22,10 +23,14 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -45,6 +50,7 @@ public class SignUpActivity extends AppCompatActivity {
     private MaterialButton signupButton;
     private DatabaseReference mDatabaseReference;
     private FirebaseDatabase mDatabase;
+    private StorageReference mstorageReference;
     private FirebaseAuth mAuth;
     private Uri resulturi = null;
     private final static int GALLERY_CODE = 1;
@@ -63,6 +69,7 @@ public class SignUpActivity extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance();
         mDatabaseReference = mDatabase.getReference().child("MUsers");
 
+        mstorageReference = FirebaseStorage.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
 
         profilepic = findViewById(R.id.sold_profile_add);
@@ -130,7 +137,7 @@ public class SignUpActivity extends AppCompatActivity {
         mProgress.show();
 
         if(!TextUtils.isEmpty(email) && !(TextUtils.isEmpty(password)) && !(TextUtils.isEmpty(name))
-          && !(TextUtils.isEmpty(payment_upi)) && !(TextUtils.isEmpty(sign_location))){
+          && !(TextUtils.isEmpty(payment_upi)) && !(TextUtils.isEmpty(sign_location)) && resulturi != null){
 
             isPassowrd(passwordEdit.getText());
 
@@ -142,27 +149,45 @@ public class SignUpActivity extends AppCompatActivity {
                         @Override
                         public void onSuccess(AuthResult authResult) {
 
-                            Map<String,String> dataToSave = new HashMap<>();
-
-
-                            String userid = mAuth.getCurrentUser().getUid();
-                            DatabaseReference currDB = mDatabaseReference.child(userid);
-
-                            dataToSave.put("name",name);
-                            dataToSave.put("username",email);
-                            dataToSave.put("upiId",payment_upi);
-                            dataToSave.put("location",sign_location);
-                            dataToSave.put("image","none");
-
-                            mDatabaseReference.child(userid).setValue(dataToSave).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            StorageReference filepath = mstorageReference.child("MSold_propics")
+                                    .child(resulturi.getLastPathSegment());
+                            filepath.putFile(resulturi).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                                 @Override
-                                public void onSuccess(Void aVoid) {
+                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                    String sold_image_url = taskSnapshot.getUploadSessionUri().toString();
+                                    String sub_sold_url = sold_image_url.substring(0,sold_image_url.indexOf("&uploadType"));
+                                    String constant_url = "&alt=media";
+                                    String final_image_url = sub_sold_url + constant_url;
 
-                                    mProgress.dismiss();
-                                    startActivity(new Intent(SignUpActivity.this,MainActivity.class));
-                                    finish();
+                                    Map<String,String> dataToSave = new HashMap<>();
+
+
+                                    String userid = mAuth.getCurrentUser().getUid();
+                                    DatabaseReference currDB = mDatabaseReference.child(userid);
+
+                                    dataToSave.put("name",name);
+                                    dataToSave.put("username",email);
+                                    dataToSave.put("upiId",payment_upi);
+                                    dataToSave.put("location",sign_location);
+                                    dataToSave.put("profile_image",final_image_url);
+
+                                    mDatabaseReference.child(userid).setValue(dataToSave).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+
+                                            mProgress.dismiss();
+                                            startActivity(new Intent(SignUpActivity.this,MainActivity.class));
+                                            finish();
+                                        }
+                                    }).addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            e.printStackTrace();
+                                        }
+                                    });
                                 }
                             });
+
                          /*   currDB.child("name").setValue(name);
                             currDB.child("username").setValue(email);
                             currDB.child("upiId").setValue(payment_upi);

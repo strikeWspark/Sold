@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/sold_signout"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="@string/signout"
+        android:textSize="18sp"
+        android:backgroundTint="@color/colorPrimary"
+        android:elevation="0dp"
+        android:fontFamily="@font/pt_sans_narrow"
+        android:layout_margin="@dimen/margin"
+        android:padding="@dimen/padding"
+        app:cornerRadius="@dimen/fab_margin"/>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/sold_profile"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="@string/profile"
+        android:backgroundTint="@color/colorPrimary"
+        android:elevation="0dp"
+        android:textSize="18sp"
+        android:fontFamily="@font/pt_sans_narrow"
+        android:layout_margin="@dimen/margin"
+        android:padding="@dimen/padding"
+        app:cornerRadius="@dimen/fab_margin"/>
+
+
+
+</merge>

@@ -21,6 +21,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -72,13 +73,14 @@ public class ProfileActivity extends AppCompatActivity {
         listDatabasereference = listDatabase.getReference("MBids").child(Id);
         listDatabasereference.keepSynced(true);
         bidList = new ArrayList<>();
-        Toast.makeText(this,""+mDatabaseReference,Toast.LENGTH_LONG).show();
+
         sold_profile_name = findViewById(R.id.sold_name_view);
         sold_profile_upi = findViewById(R.id.sold_upiId_view);
         sold_profile_mobile = findViewById(R.id.sold_mobile_no_view);
         sold_profile_location = findViewById(R.id.sold_location_view);
         sold_profile_username = findViewById(R.id.sold_username_view);
         sold_listview = findViewById(R.id.sold_profile_listView);
+        profile_picture = findViewById(R.id.sold_image_profile);
 
         getProfileDetails();
 
@@ -127,6 +129,8 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 sold = dataSnapshot.getValue(Sold.class);
+
+                Picasso.with(ProfileActivity.this).load(sold.getProfile_image()).into(profile_picture);
                 sold_profile_name.setText(sold.getName());
                 sold_profile_upi.setText(sold.getUpiId());
                 sold_profile_mobile.setText(sold.getMobile_no());

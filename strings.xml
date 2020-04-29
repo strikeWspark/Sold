@@ -10,4 +10,6 @@
     <string name="bid">BID</string>
     <string name="error_message">Fill the credentials</string>
     <string name="bow_now">Place Bid</string>
+    <string name="nid_condition">Once the bid is placed you cannot revoke it.</string>
+    <string name="cancel">Cancel</string>
 </resources>
