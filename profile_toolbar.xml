@@ -8,7 +8,7 @@
         app:showAsAction="never"/>
 
     <item
-        android:id="@+id/sold_aboutus"
+        android:id="@+id/sold_profile_aboutus"
         android:title="About Us"
         app:showAsAction="never"/>
 

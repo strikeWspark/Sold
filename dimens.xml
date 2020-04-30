@@ -4,5 +4,8 @@
     <dimen name="padding">4dp</dimen>
     <dimen name="alertpadding">10dp</dimen>
     <dimen name="dialog_text">20dp</dimen>
-    <dimen name="sold_grid_reveal_height">600dp</dimen>
+    <dimen name="sold_grid_reveal_height">457dp</dimen>
+    <dimen name="cardwidth">175dp</dimen>
+    <dimen name="cardheight">125dp</dimen>
+    <dimen name="image">50dp</dimen>
 </resources>

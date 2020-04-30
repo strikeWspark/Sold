@@ -70,10 +70,25 @@ public class SoldRecyclerView extends RecyclerView.Adapter<SoldRecyclerView.View
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
         Sold sold = soldList.get(position);
+        String post_description = null;
+        String post_price = null;
+
+        if(sold.getDescription().length() > 20){
+            post_description = sold.getDescription().substring(0,20) + "...";
+        }
+
+
+        if(sold.getMin_bid_price().length() >= 7 && sold.getMin_bid_price().length() <= 8){
+            post_price = sold.getMin_bid_price().substring(0,1) + "B";
+        }else if(sold.getMin_bid_price().length() >= 5 && sold.getMin_bid_price().length() <= 6){
+            post_price = sold.getMin_bid_price().substring(0,1) + "M";
+        }else if(sold.getMin_bid_price().length() >= 3 && sold.getMin_bid_price().length() <= 4){
+            post_price = sold.getMin_bid_price().substring(0,1) + "K";
+        }
         card_itemname = sold.getItem_name();
         holder.itemname.setText(card_itemname);
-        holder.itemdesc.setText(sold.getDescription());
-        holder.itemminbid.setText(sold.getMin_bid_price());
+        holder.itemdesc.setText(post_description);
+        holder.itemminbid.setText("$ " + post_price);
         imageUrl = sold.getItem_image();
 
 

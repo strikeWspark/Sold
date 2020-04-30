@@ -12,4 +12,9 @@
     <string name="bow_now">Place Bid</string>
     <string name="nid_condition">Once the bid is placed you cannot revoke it.</string>
     <string name="cancel">Cancel</string>
+    <string name="aboutus">About Us</string>
+    <string name="support">Support Development</string>
+    <string name="thankmessage">Thank you for downloading my app. I hope you
+    enjoy and find something useful from it. If you do then please support my development</string>
+    <string name="developer">Developer</string>
 </resources>

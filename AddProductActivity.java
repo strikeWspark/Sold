@@ -124,7 +124,6 @@ public class AddProductActivity extends AppCompatActivity {
 
 
 
-
                     dataToSave.put("key",post_key );
                     dataToSave.put("item_name",item_title);
                     dataToSave.put("description",item_desc);

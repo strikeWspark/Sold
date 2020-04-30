@@ -11,6 +11,8 @@ import android.os.Build;
 import android.os.Bundle;
 
 import com.dryfire.sold.Adapter.SoldRecyclerView;
+import com.dryfire.sold.Developer.DeveloperActivity;
+import com.dryfire.sold.Developer.SupportDevelopment;
 import com.dryfire.sold.Modal.Sold;
 import com.dryfire.sold.R;
 import com.dryfire.sold.UI.NavigationIconClickListener;
@@ -56,6 +58,8 @@ public class MainActivity extends AppCompatActivity {
     private ProgressDialog mprogressDialog;
     private MaterialButton signoutButton;
     private MaterialButton profileButton;
+    private MaterialButton supportButton;
+    private MaterialButton developerButton;
     private static final String ACTION_UPDATE_NOTIFICATION = "com.dryfire.sold.Activities";
     private static final String PRIMARY_CHANNEL_ID = "primary_notification_channel";
     private static final int NOTIFICATION_ID = 0;
@@ -96,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
         soldList = new ArrayList<>();
         mprogressDialog.setMessage("Loading Content");
         mprogressDialog.show();
-        mprogressDialog.setCancelable(false);
+//        mprogressDialog.setCancelable(false);
 
 
 
@@ -109,7 +113,8 @@ public class MainActivity extends AppCompatActivity {
         FloatingActionButton fab = findViewById(R.id.fab);
         signoutButton = findViewById(R.id.sold_signout);
         profileButton = findViewById(R.id.sold_profile);
-
+        supportButton = findViewById(R.id.support_developement);
+        developerButton = findViewById(R.id.sold_Developer);
 
         signoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -129,6 +134,20 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra("ID",mAuth.getCurrentUser().getUid());
                 startActivity(intent);
 
+            }
+        });
+
+        supportButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, SupportDevelopment.class));
+            }
+        });
+
+        developerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, DeveloperActivity.class));
             }
         });
         //new MyLoaderTask().execute();

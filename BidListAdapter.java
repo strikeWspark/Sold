@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.dryfire.sold.Modal.Bid;
 
+import com.dryfire.sold.Modal.Sold;
 import com.dryfire.sold.R;
 import com.squareup.picasso.Picasso;
 
@@ -56,9 +57,24 @@ public class BidListAdapter extends BaseAdapter {
         String imageurl =  bid.getItem_image();
 
         Picasso.with(context).load(imageurl).into(imageView);
-        itemname.setText(bid.getItemname());
+        if(bid.getItemname().length() > 12){
+            itemname.setText(bid.getItemname().substring(0,12) + "...");
+        }else{
+            itemname.setText(bid.getItemname());
+        }
+
         Log.d(bid.getItem_key(), "getView: ");
-        bidPrice.setText(bid.getBid_price());
+
+        String post_price = null;
+
+        if(bid.getBid_price().length() >= 7 && bid.getBid_price().length() <= 8){
+            post_price = bid.getBid_price().substring(0,1) + "B";
+        }else if(bid.getBid_price().length() >= 5 && bid.getBid_price().length() <= 6){
+            post_price = bid.getBid_price().substring(0,1) + "M";
+        }else if(bid.getBid_price().length() >= 3 && bid.getBid_price().length() <= 4){
+            post_price = bid.getBid_price().substring(0,1) + "K";
+        }
+        bidPrice.setText(post_price);
         return v;
     }
 }

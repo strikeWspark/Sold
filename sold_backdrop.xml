@@ -23,10 +23,41 @@
         android:elevation="0dp"
         android:textSize="18sp"
         android:fontFamily="@font/pt_sans_narrow"
+        app:cornerRadius="@dimen/fab_margin"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/support_developement"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="@string/support"
+        android:backgroundTint="@color/colorPrimary"
+        android:elevation="0dp"
+        android:textSize="18sp"
+        android:fontFamily="@font/pt_sans_narrow"
         android:layout_margin="@dimen/margin"
         android:padding="@dimen/padding"
         app:cornerRadius="@dimen/fab_margin"/>
+    <View
+        android:layout_width="36dp"
+        android:layout_height="1dp"
+        android:layout_margin="@dimen/margin"
+        android:background="@color/textColor"/>
 
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/sold_Developer"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="@string/developer"
+        android:backgroundTint="@color/colorPrimary"
+        android:elevation="0dp"
+        android:textSize="18sp"
+        android:fontFamily="@font/pt_sans_narrow"
+        android:layout_margin="@dimen/margin"
+        android:padding="@dimen/padding"
+        app:cornerRadius="@dimen/fab_margin"
+        />
 
 
 </merge>
