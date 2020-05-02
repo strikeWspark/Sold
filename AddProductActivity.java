@@ -6,7 +6,10 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.dryfire.sold.Modal.Sold;
@@ -24,12 +27,15 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.appcompat.widget.Toolbar;
 
 public class AddProductActivity extends AppCompatActivity {
@@ -40,6 +46,7 @@ public class AddProductActivity extends AppCompatActivity {
     private TextInputEditText item_description;
     private TextInputEditText item_price;
     private MaterialButton add_product_button;
+    private Spinner spinner;
     private Uri mimageUri;
     private FirebaseAuth mAuth;
     private FirebaseUser mUser;
@@ -47,6 +54,7 @@ public class AddProductActivity extends AppCompatActivity {
     private DatabaseReference mSoldDatabase;
     private FirebaseDatabase mDatabase;
     private static final int GALLERY_CODE = 1;
+    private String category = null;
     private ProgressDialog mProgress;
 
     @Override
@@ -73,6 +81,28 @@ public class AddProductActivity extends AppCompatActivity {
         item_description = (TextInputEditText) findViewById(R.id.sold_add_description);
         item_price = (TextInputEditText) findViewById(R.id.sold_add_bidPrice);
         add_product_button = (MaterialButton) findViewById(R.id.sold_add_product);
+        spinner = (Spinner) findViewById(R.id.sold_category_spinner);
+
+        final String []categories = {"Electronics","Furniture","Groceries","Home Appliance","Motor Vehicle"};
+
+        final ArrayList<String>  list_categories = new ArrayList<String>(Arrays.asList(categories));
+        ArrayAdapter<String> spinner_adapter = new ArrayAdapter<>(this,
+                R.layout.sold_categories_list,list_categories);
+
+        spinner.setAdapter(spinner_adapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                category = list_categories.get(position);
+                Toast.makeText(AddProductActivity.this, ""+ list_categories.get(position), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
 
         item_image.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -132,7 +162,8 @@ public class AddProductActivity extends AppCompatActivity {
                     dataToSave.put("userId",mUser.getUid());
                     dataToSave.put("username",mUser.getEmail());
 
-                    newItem.setValue(dataToSave).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    mSoldDatabase.child(category).child(post_key).setValue(dataToSave)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
                             mProgress.dismiss();
