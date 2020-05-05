@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private MaterialButton profileButton;
     private MaterialButton supportButton;
     private MaterialButton developerButton;
+    private MaterialButton howtouseButton;
     private AlertDialog.Builder filterbuilder;
     private AlertDialog filterdialog;
     private TextView electronicsbutton,furniturebutton,groceriesbutton;
@@ -142,7 +143,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         profileButton = findViewById(R.id.sold_profile);
         supportButton = findViewById(R.id.support_developement);
         developerButton = findViewById(R.id.sold_Developer);
-
+        howtouseButton = findViewById(R.id.sold_howtouse);
         signoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -175,6 +176,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, DeveloperActivity.class));
+            }
+        });
+
+        howtouseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this,SoldHowtoUse.class));
             }
         });
         //new MyLoaderTask().execute();
@@ -279,15 +287,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()){
-            case R.id.sold_profile:
-                Intent intent = new Intent(MainActivity.this,ProfileActivity.class);
-                intent.putExtra("ID",mAuth.getCurrentUser().getUid());
-                startActivity(intent);
-                break;
-            case R.id.sold_signout:
-                mAuth.signOut();
-                startActivity(new Intent(MainActivity.this,LoginActivity.class));
-                finish();
+            case R.id.sold_feedback:
+                startActivity(new Intent(this,FeedbackActivity.class));
                 break;
             case R.id.filter:
                 View v = getLayoutInflater().inflate(R.layout.sold_filter_dialog,null);

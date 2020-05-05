@@ -11,6 +11,7 @@ import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 
 import com.dryfire.sold.R;
@@ -140,53 +141,52 @@ public class SignUpActivity extends AppCompatActivity {
           && !(TextUtils.isEmpty(payment_upi)) && !(TextUtils.isEmpty(sign_location)) && resulturi != null){
 
             isPassowrd(passwordEdit.getText());
+            if(password.equals(confirm_password)){
+                confirmpwdInput.setError(null);
+
+                mAuth.createUserWithEmailAndPassword(email,password)
+                        .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                            @Override
+                            public void onSuccess(AuthResult authResult) {
+
+                                StorageReference filepath = mstorageReference.child("MSold_propics")
+                                        .child(resulturi.getLastPathSegment());
+                                filepath.putFile(resulturi).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                    @Override
+                                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                        String sold_image_url = taskSnapshot.getUploadSessionUri().toString();
+                                        String sub_sold_url = sold_image_url.substring(0,sold_image_url.indexOf("&uploadType"));
+                                        String constant_url = "&alt=media";
+                                        String final_image_url = sub_sold_url + constant_url;
+
+                                        Map<String,String> dataToSave = new HashMap<>();
 
 
+                                        String userid = mAuth.getCurrentUser().getUid();
+                                        DatabaseReference currDB = mDatabaseReference.child(userid);
 
+                                        dataToSave.put("name",name);
+                                        dataToSave.put("username",email);
+                                        dataToSave.put("upiId",payment_upi);
+                                        dataToSave.put("location",sign_location);
+                                        dataToSave.put("profile_image",final_image_url);
+                                        dataToSave.put("mobile_no",sign_mobile);
+                                        mDatabaseReference.child(userid).setValue(dataToSave).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
 
-            mAuth.createUserWithEmailAndPassword(email,password)
-                    .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-                        @Override
-                        public void onSuccess(AuthResult authResult) {
-
-                            StorageReference filepath = mstorageReference.child("MSold_propics")
-                                    .child(resulturi.getLastPathSegment());
-                            filepath.putFile(resulturi).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                                @Override
-                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                    String sold_image_url = taskSnapshot.getUploadSessionUri().toString();
-                                    String sub_sold_url = sold_image_url.substring(0,sold_image_url.indexOf("&uploadType"));
-                                    String constant_url = "&alt=media";
-                                    String final_image_url = sub_sold_url + constant_url;
-
-                                    Map<String,String> dataToSave = new HashMap<>();
-
-
-                                    String userid = mAuth.getCurrentUser().getUid();
-                                    DatabaseReference currDB = mDatabaseReference.child(userid);
-
-                                    dataToSave.put("name",name);
-                                    dataToSave.put("username",email);
-                                    dataToSave.put("upiId",payment_upi);
-                                    dataToSave.put("location",sign_location);
-                                    dataToSave.put("profile_image",final_image_url);
-
-                                    mDatabaseReference.child(userid).setValue(dataToSave).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                        @Override
-                                        public void onSuccess(Void aVoid) {
-
-                                            mProgress.dismiss();
-                                            startActivity(new Intent(SignUpActivity.this,MainActivity.class));
-                                            finish();
-                                        }
-                                    }).addOnFailureListener(new OnFailureListener() {
-                                        @Override
-                                        public void onFailure(@NonNull Exception e) {
-                                            e.printStackTrace();
-                                        }
-                                    });
-                                }
-                            });
+                                                mProgress.dismiss();
+                                                startActivity(new Intent(SignUpActivity.this,MainActivity.class));
+                                                finish();
+                                            }
+                                        }).addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                e.printStackTrace();
+                                            }
+                                        });
+                                    }
+                                });
 
                          /*   currDB.child("name").setValue(name);
                             currDB.child("username").setValue(email);
@@ -197,8 +197,17 @@ public class SignUpActivity extends AppCompatActivity {
                            */
 
 
-                        }
-                    });
+                            }
+                        });
+
+            }else{
+                confirmpwdInput.setError("Your password does't match");
+                mProgress.dismiss();
+            }
+
+
+
+
         }else{
             mProgress.dismiss();
             nameInput.setError(getString(R.string.error_message));

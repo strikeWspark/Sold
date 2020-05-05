@@ -23,11 +23,13 @@
         </activity>
         <activity android:name=".Activities.SplashScreen">
 
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
         <activity android:name=".Activities.LoginActivity">
 
@@ -54,6 +56,20 @@
         <activity
             android:parentActivityName=".Activities.MainActivity"
             android:name=".Developer.DeveloperActivity">
+        </activity>
+
+        <activity android:parentActivityName=".Activities.MainActivity"
+            android:name=".Activities.SoldHowtoUse">
+
+
+
+        </activity>
+
+        <activity
+            android:parentActivityName=".Activities.MainActivity"
+            android:name=".Activities.FeedbackActivity">
+
+
         </activity>
 
         <meta-data

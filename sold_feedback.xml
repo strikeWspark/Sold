@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:id="@+id/feedtoolbar"/>
+
+
+
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="@dimen/margin"
+            android:fontFamily="@font/open_sans"
+            android:padding="@dimen/padding"
+            android:text="@string/feedback_suggestion"
+            android:textColor="@android:color/background_dark"
+            android:textSize="22sp"
+            android:textStyle="bold"
+             />
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/welcome_name"
+                    android:textColor="#0D47A1"
+                    android:layout_margin="@dimen/margin"
+                    android:fontFamily="@font/poppins_bold"
+                    android:textSize="20sp"
+                    android:padding="@dimen/padding"
+                    android:textStyle="bold"/>
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/image_height"
+                    android:src="@drawable/feebback"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Rate Us"
+                    android:fontFamily="@font/poppins_bold"
+                    android:textSize="15sp"
+                    android:layout_margin="@dimen/margin"
+                    android:padding="@dimen/padding"
+                    android:textStyle="bold"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_width="@dimen/smiley"
+                        android:layout_height="@dimen/smiley"
+                        android:id="@+id/rate_bad"
+                        android:scaleType="centerCrop"
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/bad"
+                        android:layout_marginLeft="@dimen/margin"
+                        android:padding="@dimen/padding"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="        Bad"
+                        android:layout_below="@id/rate_bad"
+                        android:padding="@dimen/padding"
+                        android:textColor="@android:color/background_dark"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/poppins_bold"/>
+
+                    <ImageView
+                        android:layout_width="@dimen/smiley"
+                        android:layout_height="@dimen/smiley"
+                        android:id="@+id/rate_average"
+                        android:background="@android:color/transparent"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/average"
+                        android:layout_toRightOf="@id/rate_verygood"
+                        android:padding="@dimen/padding"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="   Average"
+                        android:layout_below="@id/rate_bad"
+                        android:layout_toEndOf="@id/rate_verygood"
+                        android:textColor="@android:color/background_dark"
+                        android:padding="@dimen/padding"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/poppins_bold"/>
+                    <ImageView
+                        android:layout_width="@dimen/smiley"
+                        android:layout_height="@dimen/smiley"
+                        android:id="@+id/rate_good"
+                        android:background="@android:color/transparent"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/good"
+                        android:layout_toRightOf="@id/rate_awesome"
+                        android:padding="@dimen/padding"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="     Good"
+                        android:padding="@dimen/padding"
+                        android:layout_below="@id/rate_bad"
+                        android:layout_toEndOf="@id/rate_awesome"
+                        android:textColor="@android:color/background_dark"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/poppins_bold"/>
+                    <ImageView
+                        android:layout_width="@dimen/smiley"
+                        android:layout_height="@dimen/smiley"
+                        android:background="@android:color/transparent"
+                        android:id="@+id/rate_verygood"
+                        android:scaleType="centerCrop"
+                        android:layout_below="@id/rate_bad"
+                        android:layout_toRightOf="@id/rate_bad"
+                        android:src="@drawable/verygood"
+                        android:padding="@dimen/padding"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Very Good"
+                        android:layout_below="@id/rate_verygood"
+                        android:layout_toEndOf="@id/rate_bad"
+                        android:padding="@dimen/padding"
+                        android:textColor="@android:color/background_dark"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/poppins_bold"/>
+                    <ImageView
+                        android:layout_width="@dimen/smiley"
+                        android:layout_height="@dimen/smiley"
+                        android:id="@+id/rate_awesome"
+                        android:scaleType="centerCrop"
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/awesome"
+                        android:layout_below="@id/rate_bad"
+                        android:layout_toRightOf="@id/rate_average"
+                        android:padding="@dimen/padding"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Awesome"
+                        android:layout_below="@id/rate_awesome"
+                        android:layout_toEndOf="@id/rate_average"
+                        android:textColor="@android:color/background_dark"
+                        android:textStyle="bold"
+                        android:padding="@dimen/padding"
+                        android:fontFamily="@font/poppins_bold"/>
+                </RelativeLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Submit"
+                    android:fontFamily="@font/pt_sans_caption"
+                    android:id="@+id/rateButton"
+                    android:backgroundTint="#0D47A1"
+                    android:layout_margin="@dimen/margin"
+                    android:padding="@dimen/padding"
+                    app:cornerRadius="@dimen/fab_margin"/>
+
+            </LinearLayout>
+        </ScrollView>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

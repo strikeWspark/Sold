@@ -58,6 +58,16 @@
         android:padding="@dimen/padding"
         app:cornerRadius="@dimen/fab_margin"
         />
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/sold_howtouse"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="@string/howto_use"
+        android:backgroundTint="@color/colorPrimary"
+        android:elevation="0dp"
+        android:textSize="18sp"
+        android:fontFamily="@font/pt_sans_narrow"
+        app:cornerRadius="@dimen/fab_margin"/>
 
 
 </merge>
